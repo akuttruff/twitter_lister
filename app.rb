@@ -35,11 +35,12 @@ if response.code == '200' then
   data = JSON.parse(response.body)
 end
  
- data.each do |handle|
- description = handle["description"]
+data.each do |handle|
+	description = handle["description"]
+	puts description
 end
   	 
- puts description
+ 
   
 #  words = $description.split(" ")
 #  sorted_words = words.sort

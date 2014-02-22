@@ -42,7 +42,7 @@ end
   	 
  
   
-#  words = $description.split(" ")
+#  words = description.split(" ")
 #  sorted_words = words.sort
 #  puts sorted_words
 #  end

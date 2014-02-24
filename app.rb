@@ -44,5 +44,4 @@ frequencies.reverse!
 zen_masters = JSON.generate(frequencies)
 puts zen_masters
   	
-# write data to a static .js file (?)
 # use d3 to illustrate findings

@@ -26,10 +26,9 @@ response = http.request(request)
 data = JSON.parse(response.body)
 
 # Convert JSON array to string and split into separate words
-bio = data.map { |h| h["description"] }
-bio_string = bio.join
-bio_string.downcase!
-words = bio_string.split(" ")
+bio = data.map { |h| h["description"].downcase }
+bio_string = bio.join(" ")
+words = bio_string.split(/\W+/)
 
 # Create hash to sort word frequencies 
 frequencies = Hash.new(0)

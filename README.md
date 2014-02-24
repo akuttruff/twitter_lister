@@ -5,6 +5,6 @@ Using Twitter's API, this simple app will take a select group of Twitter users a
 
 In this sample case we are pulling information from top Twitter contributors in the online Yoga-sphere. 
 
-(This is also my very first attempt at structuring a Sinatra app whilst playing around with an API.)
+(This is also my first time playing around with an API.)
 
-Much of the net/HTTP code draws from the [Codecademy](www.codecademy.com) Twitter API tutorial. The site has some great resources, check them out!
+Much of the net/HTTP code draws from the [Codecademy](www.codecademy.com) Twitter API lessons. The site has some great tutorials, check them out!

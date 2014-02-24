@@ -4,8 +4,7 @@ require 'uri'
 require 'oauth'
 require './secret.rb'
 
-# the GET users/lookup resource takes the screen_name paramater
-# use TWITTER_HANDLES stored in secret.rb 
+# use TWITTER_HANDLES stored in secret.rb for screen_name param
 # curl https://twitter.com/mjfreshyfresh/zen-masters/members > handles.html 
 # use regex to extract twitter screennames 
 # (couldn't get regex to work, created array by hand - d'oh!)
@@ -26,23 +25,24 @@ http.start
 response = http.request(request)
 
 # creates a JSON representation of the members' info;
-# 'description' will give us bios
-if response.code == '200' then
-  data = JSON.parse(response.body)
-end
+data = JSON.parse(response.body)
 
+# 'description' will give us bios
 # JSON array -> string -> split strings of words
 bio = data.map { |h| h["description"] }
 bio_string = bio.join
 bio_string.downcase!
 words = bio_string.split(" ")
 
-# create hash to store word frequencies
+# create hash to store word frequencies 
 frequencies = Hash.new(0)
 words.each { |word| frequencies[word] += 1 }
 frequencies = frequencies.sort_by {|a, b| b }
 frequencies.reverse!
-frequencies.each { |word, frequency| puts "#{word}:#{frequency}" }
+
+# -> and back to JSON to save as JavaScript object
+zen_masters = JSON.generate(frequencies)
+puts zen_masters
   	
-# write out data to a static .js file (??)
+# write data to a static .js file (?)
 # use d3 to illustrate findings

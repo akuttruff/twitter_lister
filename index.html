@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+        <script type="text/javascript" src="d3/d3.js"></script>
+        <style type="text/css">
+        
+            div.bar {
+                display: inline-block;
+                width: 20px;
+                height: 75px;
+                background-color: teal;
+            }
+        
+        </style>
+    </head>
+    <body>
+    <script>
+    
+        var dataset 
+
+        d3.json("zen_masters.json", function(json) {
+            console.log(json);       
+        
+        dataset = json
+
+        d3.select("body").selectAll("div")
+        .data(dataset)
+        .enter()
+        .append("div")
+        .attr("class", "bar").style("height", function(d) { return d[1] + "px";
+            });
+        });
+
+        </script>
+
+        <svg width="5000" height="500"> 
+        <circle cx="250" cy="250" r="200" fill="rgba(128, 0, 128, 1.0)"/> 
+        <circle cx="500" cy="250" r="200" fill="rgba(0, 0, 255, 0.75)"/> 
+        <circle cx="750" cy="250" r="200" fill="rgba(0, 255, 0, 0.5)"/> 
+        <circle cx="1000" cy="250" r="200" fill="rgba(255, 255, 0, 0.25)"/> 
+        <circle cx="1250" cy="250" r="200" fill="rgba(255, 0, 0, 0.1)"/>
+        </svg>
+    </body>
+</html>

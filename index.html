@@ -5,7 +5,9 @@
         <title>D3 Test</title>
         <script type="text/javascript" src="d3/d3.js"></script>
         <script src="d3.layout.cloud.js"></script>
-        
+        <style type="text/css">
+             body {margin-left:auto; margin-right: auto; display:block;}
+        </style>   
     </head>
     <body>
     <script>
@@ -13,14 +15,14 @@
        d3.json("zen_masters.json", function(error, json) {
   if (error) return console.warn(error);
 
-  var fill = d3.scale.category20();
+  var fill = d3.scale.category20b();
 
   d3.layout.cloud().size([300, 300])    
       .words(json.map(function(d) {
-            return {text: d, size: 10 + Math.random() * 90};
+            return {text: d[0], size: 10 + Math.random() * 90};
        }))
       .rotate(function() { return ~~(Math.random() * 2) * 90; })
-      .font("Impact")
+      .font("Helvetica neue")
       .fontSize(function(d) { return d.size; })
       .on("end", draw)
       .start();
@@ -32,7 +34,7 @@
           .selectAll("text").data(words)
           .enter().append("text")
           .style("font-size", function(d) { return d.size + "px"; })
-          .style("font-family", "Impact")
+          .style("font-family", "Helvetica neue")
           .style("fill", function(d, i) { return fill(i); })
           .attr("text-anchor", "middle")
           .attr("transform", function(d) {

@@ -1,8 +1,7 @@
 Yoga_Cloud
 ====================
 
-Using Twitter's API, this simple app will take a select group of Twitter users and output the most commonly used words from their recent tweets using the [d3-cloud](https://github.com/jasondavies/d3-cloud) layout.
-
-In this sample case we are pulling biographical data from top Twitter contributors in the online Yoga-sphere. 
+This project gathers the Twitter bios of a select group of contributors in the online Yoga-sphere and outputs a random selection of their most commonly used words using [d3-cloud](https://github.com/jasondavies/d3-cloud).
 
 Much of the net/HTTP code draws from the [Codecademy](www.codecademy.com) Twitter API lessons. The site has some great tutorials, check them out!
+

@@ -4,40 +4,85 @@ require 'uri'
 require 'oauth'
 require './secret.rb'
 
-# Use TWITTER_HANDLES stored in secret.rb for screen_name param
-# Couldn't get regex to collect TWITTER_HANDLES, created array by hand - d'oh!
-baseurl = "https://api.twitter.com"
-path    = "/1.1/users/lookup.json"
-query   = URI.encode_www_form("screen_name" => TWITTER_HANDLES)
-address = URI("#{baseurl}#{path}?#{query}")
-request = Net::HTTP::Get.new(address.request_uri)
+		baseurl 		= "https://api.twitter.com"
+		slug_path		= "/1.1/lists/show.json"
 
-# Set up HTTP
-http             = Net::HTTP.new(address.host, address.port)
-http.use_ssl     = true
-http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+		query   		= URI.encode_www_form("slug" => "zen-masters", "owner_screen_name" => "mjfreshyfresh")
+		address 		= URI("#{baseurl}#{slug_path}?#{query}")
+		request 		= Net::HTTP::Get.new(address.request_uri)
 
-# CONSUMER_KEY and ACCESS_TOKEN stored in secret.rb
-request.oauth!(http, CONSUMER_KEY, ACCESS_TOKEN)
-http.start
-response = http.request(request)
+		# Set up HTTP
+		http             = Net::HTTP.new(address.host, address.port)
+		http.use_ssl     = true
+		http.verify_mode = OpenSSL::SSL::VERIFY_PEER
 
-# Create a JSON representation of the members' info
-data = JSON.parse(response.body)
+		# CONSUMER_KEY and ACCESS_TOKEN stored in secret.rb
+		request.oauth!(http, CONSUMER_KEY, ACCESS_TOKEN)
+		http.start
+		response = http.request(request)
 
-# Convert JSON array to string and split into separate words
-bio = data.map { |h| h["description"].downcase }
-bio_string = bio.join(" ")
-words = bio_string.split(/\W+/)
+		# Create a JSON representation of the members' info
+		slugData = JSON.parse(response.body)
+		id = slugData["id"]
 
-# Create hash to sort word frequencies 
-frequencies = Hash.new(0)
-words.each { |word| frequencies[word] += 1 }
-frequencies = frequencies.sort_by {|a, b| b }
-frequencies.reverse!
+		list_path		= "/1.1/lists/members.json"
+		baseurl 		= "https://api.twitter.com"
 
-# Convert data back to JSON to save as JavaScript object
-zen_masters = JSON.generate(frequencies)
-puts zen_masters
-  	
-# Use d3 to illustrate findings
+		query   		= URI.encode_www_form("list_id" => id)
+		address 		= URI("#{baseurl}#{list_path}?#{query}")
+		request 		= Net::HTTP::Get.new(address.request_uri)
+
+		# Set up HTTP
+		http             = Net::HTTP.new(address.host, address.port)
+		http.use_ssl     = true
+		http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+
+		# CONSUMER_KEY and ACCESS_TOKEN stored in secret.rb
+		request.oauth!(http, CONSUMER_KEY, ACCESS_TOKEN)
+		http.start
+		response = http.request(request)
+
+		# Create a JSON representation of the members' info
+		data = JSON.parse(response.body)
+		list_data = data["users"].map { |h| h["screen_name"] }
+		
+		# use cursors to iterate over next 20 users until all handles are displayed
+
+		bio_path    = "/1.1/users/lookup.json"
+		baseurl			= "https://api.twitter.com"
+		query   		= URI.encode_www_form("screen_name" => list_data)
+		address 		= URI("#{baseurl}#{bio_path}?#{query}")
+		request 		= Net::HTTP::Get.new(address.request_uri)
+
+
+		# Set up HTTP
+		http             = Net::HTTP.new(address.host, address.port)
+		http.use_ssl     = true
+		http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+
+		# CONSUMER_KEY and ACCESS_TOKEN stored in secret.rb
+		request.oauth!(http, CONSUMER_KEY, ACCESS_TOKEN)
+		http.start
+		response = http.request(request)
+
+		# Create a JSON representation of the members' info
+		data = JSON.parse(response.body)
+
+		# Convert JSON array to string and split into separate words
+		bio = data.map { |h| h["description"].downcase }
+		bio_string = bio.join(" ")
+		words = bio_string.split(/\W+/)
+
+		# Create hash to sort word frequencies 
+		frequencies = Hash.new(0)
+		words.each { |word| frequencies[word] += 1 }
+		frequencies = frequencies.sort_by {|a, b| b }
+		frequencies.reverse!
+
+		# Convert data back to JSON to save as JavaScript object
+		final_bio_list = JSON.generate(frequencies)
+		puts final_bio_list
+
+
+
+			

@@ -5,8 +5,8 @@ require 'oauth'
 require './secret.rb'
 
 		baseurl 		= "https://api.twitter.com"
+		
 		slug_path		= "/1.1/lists/show.json"
-
 		query   		= URI.encode_www_form("slug" => "zen-masters", "owner_screen_name" => "mjfreshyfresh")
 		address 		= URI("#{baseurl}#{slug_path}?#{query}")
 		request 		= Net::HTTP::Get.new(address.request_uri)
@@ -26,8 +26,6 @@ require './secret.rb'
 		id = slugData["id"]
 
 		list_path		= "/1.1/lists/members.json"
-		baseurl 		= "https://api.twitter.com"
-
 		query   		= URI.encode_www_form("list_id" => id)
 		address 		= URI("#{baseurl}#{list_path}?#{query}")
 		request 		= Net::HTTP::Get.new(address.request_uri)
@@ -49,7 +47,6 @@ require './secret.rb'
 		# use cursors to iterate over next 20 users until all handles are displayed
 
 		bio_path    = "/1.1/users/lookup.json"
-		baseurl			= "https://api.twitter.com"
 		query   		= URI.encode_www_form("screen_name" => list_data)
 		address 		= URI("#{baseurl}#{bio_path}?#{query}")
 		request 		= Net::HTTP::Get.new(address.request_uri)
@@ -80,8 +77,13 @@ require './secret.rb'
 		frequencies.reverse!
 
 		# Convert data back to JSON to save as JavaScript object
-		final_bio_list = JSON.generate(frequencies)
-		puts final_bio_list
+		json_results = JSON.generate(frequencies)
+		File.open('json_results.json','w') do 
+			|h| h.puts json_results
+		end
+		
+
+
 
 
 

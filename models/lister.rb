@@ -12,11 +12,10 @@ class Lister
 	end
 
 	def process
-		# twitter lookup and munge
 
 		baseurl 		= "https://api.twitter.com"
+		
 		slug_path		= "/1.1/lists/show.json"
-
 		query   		= URI.encode_www_form("slug" => @slug_name, "owner_screen_name" => @user_name)
 		address 		= URI("#{baseurl}#{slug_path}?#{query}")
 		request 		= Net::HTTP::Get.new(address.request_uri)
@@ -31,7 +30,7 @@ class Lister
 		http.start
 		response = http.request(request)
 
-		# Create a JSON representation of the members' info
+		# parses the JSON object to extract the list's numerical ID
 		slugData = JSON.parse(response.body)
 		id = slugData["id"]
 
@@ -51,12 +50,11 @@ class Lister
 		http.start
 		response = http.request(request)
 
-		# Create a JSON representation of the members' info
+		# returns array of twitter handles
 		data = JSON.parse(response.body)
 		list_data = data["users"].map { |h| h["screen_name"] }
 		
 		# use cursors to iterate over next 20 users until all handles are displayed
-
 		bio_path    = "/1.1/users/lookup.json"
 		query   		= URI.encode_www_form("screen_name" => list_data)
 		address 		= URI("#{baseurl}#{bio_path}?#{query}")

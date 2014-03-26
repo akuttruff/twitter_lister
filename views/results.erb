@@ -1,4 +1,47 @@
-word cloud result
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+        <script type="text/javascript" src="../d3/d3.js"></script>
+        <script src="../d3/d3.layout.cloud.js"></script>
+        <style type="text/css">
+             body {margin-left:auto; margin-right: auto; display:block;}
+        </style>   
+    </head>
+    <body>
+    <script>
+    
+       d3.json("json_results.json", function(error, json) {
+  if (error) return console.warn(error);
 
-var js = <% @word_data %>;
+  var fill = d3.scale.category20b();
 
+  d3.layout.cloud().size([300, 300])    
+      .words(json.map(function(d) {
+            return {text: d[0], size: 10 + d[1]};
+       }))
+      .rotate(function() { return ~~(Math.random() * 2) * 90; })
+      .font("Helvetica neue")
+      .fontSize(function(d) { return d.size; })
+      .on("end", draw)
+      .start();
+
+  function draw(words) {
+      d3.select("body").append("svg")
+          .attr("width", 300).attr("height", 300)
+          .append("g").attr("transform", "translate(150,150)")
+          .selectAll("text").data(words)
+          .enter().append("text")
+          .style("font-size", function(d) { return d.size + "px"; })
+          .style("font-family", "Helvetica neue")
+          .style("fill", function(d, i) { return fill(i); })
+          .attr("text-anchor", "middle")
+          .attr("transform", function(d) {
+              return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+          })
+          .text(function(d) { return d.text; });
+      }
+})
+        </script>
+    </body>
+</html>

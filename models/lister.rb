@@ -1,26 +1,23 @@
-class Lister
-
-	def initialize(name)
-		
-	end
-
-	# return array or hash
-	def process
-		# twitter lookup and munge
-		
-	end
-end
-
 require 'json'
 require 'net/http'
 require 'uri'
 require 'oauth'
 require './secret.rb'
 
+class Lister
+
+	def initialize(slug_name, user_name)
+		@slug_name = slug_name
+		@user_name = user_name
+	end
+
+	def process
+		# twitter lookup and munge
+
 		baseurl 		= "https://api.twitter.com"
 		slug_path		= "/1.1/lists/show.json"
 
-		query   		= URI.encode_www_form("slug" => "zen-masters", "owner_screen_name" => "mjfreshyfresh")
+		query   		= URI.encode_www_form("slug" => @slug_name, "owner_screen_name" => @user_name)
 		address 		= URI("#{baseurl}#{slug_path}?#{query}")
 		request 		= Net::HTTP::Get.new(address.request_uri)
 
@@ -37,6 +34,7 @@ require './secret.rb'
 		# Create a JSON representation of the members' info
 		slugData = JSON.parse(response.body)
 		id = slugData["id"]
+
 
 		list_path		= "/1.1/lists/members.json"
 		query   		= URI.encode_www_form("list_id" => id)
@@ -64,7 +62,6 @@ require './secret.rb'
 		address 		= URI("#{baseurl}#{bio_path}?#{query}")
 		request 		= Net::HTTP::Get.new(address.request_uri)
 
-
 		# Set up HTTP
 		http             = Net::HTTP.new(address.host, address.port)
 		http.use_ssl     = true
@@ -91,13 +88,10 @@ require './secret.rb'
 
 		# Convert data back to JSON to save as JavaScript object
 		json_results = JSON.generate(frequencies)
-		File.open('json_results.json','w') do 
+
+		path = File.dirname(__FILE__) + "/../public/json_results.json"
+		File.open(path, 'w') do 
 			|h| h.puts json_results
-		end
-		
-
-
-
-
-
-			
+		end		
+	end
+end

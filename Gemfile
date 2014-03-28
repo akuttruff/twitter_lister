@@ -1,6 +1,4 @@
 source 'https://rubygems.org'
 
-require 'json'
-require 'net/http'
-require 'uri'
-require 'oauth'
+gem 'json', '1.8.1'
+gem 'oauth', '0.4.7'

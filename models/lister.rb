@@ -1,9 +1,12 @@
 
 require './secret.rb'
+require 'bundler'
+require 'sinatra'
 require 'json'
 require 'oauth'
 require 'net/http'
 require 'uri'
+require 'rack'
 
 class Lister
 

@@ -1,5 +1,9 @@
 
 require './secret.rb'
+require 'json'
+require 'oauth'
+require 'net/http'
+require 'uri'
 
 class Lister
 

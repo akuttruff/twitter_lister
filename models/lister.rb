@@ -1,5 +1,5 @@
 
-require './secret.rb'
+require 'secret.rb'
 
 class Lister
 

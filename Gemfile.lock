@@ -21,3 +21,4 @@ DEPENDENCIES
   oauth (= 0.4.7)
   rack (= 1.5.2)
   sinatra (= 1.4.4)
+  tilt

@@ -1,12 +1,9 @@
-require 'json'
-require 'net/http'
-require 'uri'
-require 'oauth'
+
 require './secret.rb'
 
 class Lister
 
-	def initialize(slug_name, user_name)
+  def initialize(slug_name, user_name)
 		@slug_name = slug_name
 		@user_name = user_name
 	end

@@ -1,5 +1,6 @@
 require 'sinatra' 
 require 'bundler/setup'
+require 'oauth'
 require_relative 'models/lister.rb'
 
 get '/' do

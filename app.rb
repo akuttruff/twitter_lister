@@ -1,4 +1,5 @@
-require 'sinatra'
+require 'sinatra' 
+require 'bundler/setup'
 require_relative 'models/lister.rb'
 
 get '/' do

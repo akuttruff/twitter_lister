@@ -30,7 +30,7 @@ class Lister
 		http.verify_mode = OpenSSL::SSL::VERIFY_PEER
 
 		# CONSUMER_KEY and ACCESS_TOKEN stored in secret.rb
-		request.oauth!(http, CONSUMER_KEY, ACCESS_TOKEN)
+		request.oauth!(http, OAuth::Consumer.new(CONSUMER_KEY, CONSUMER_SECRET), OAuth::Token.new(TOKEN_KEY, TOKEN_SECRET))
 		http.start
 		response = http.request(request)
 
@@ -50,7 +50,7 @@ class Lister
 		http.verify_mode = OpenSSL::SSL::VERIFY_PEER
 
 		# CONSUMER_KEY and ACCESS_TOKEN stored in secret.rb
-		request.oauth!(http, CONSUMER_KEY, ACCESS_TOKEN)
+		request.oauth!(http, OAuth::Consumer.new(CONSUMER_KEY, CONSUMER_SECRET), OAuth::Token.new(TOKEN_KEY, TOKEN_SECRET))
 		http.start
 		response = http.request(request)
 
@@ -70,7 +70,7 @@ class Lister
 		http.verify_mode = OpenSSL::SSL::VERIFY_PEER
 
 		# CONSUMER_KEY and ACCESS_TOKEN stored in secret.rb
-		request.oauth!(http, CONSUMER_KEY, ACCESS_TOKEN)
+		request.oauth!(http, OAuth::Consumer.new(CONSUMER_KEY, CONSUMER_SECRET), OAuth::Token.new(TOKEN_KEY, TOKEN_SECRET))
 		http.start
 		response = http.request(request)
 

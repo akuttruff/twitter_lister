@@ -1,5 +1,3 @@
-
-require './secret.rb'
 require 'bundler'
 require 'sinatra'
 require 'json'

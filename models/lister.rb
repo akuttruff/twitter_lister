@@ -13,6 +13,11 @@ class Lister
 		@user_name = user_name
 	end
 
+  # method is too long 
+  # should break into smaller groups, better yet use: Twitter Gem
+  # https://github.com/sferik/twitter <-- It has Lists Members call
+  # Return the members of @sferik's "presidents" list
+  # Twitter.list_members('sferik', 'presidents')
 	def process
 
 		baseurl 		= "https://api.twitter.com"
@@ -89,6 +94,7 @@ class Lister
 		# Convert data back to JSON to save as JavaScript object
 		json_results = JSON.generate(frequencies)
 
+    # In a cloud env you don't write locally, use S3 (realize this will get changed)
 		path = File.dirname(__FILE__) + "/../public/json_results.json"
 		File.open(path, 'w') do 
 			|h| h.puts json_results

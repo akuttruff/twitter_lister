@@ -14,7 +14,7 @@ post '/results' do
 	user_name = params['user_name']
 
 	lister = Lister.new(slug_name, user_name)
-  lister.process
+	lister.process
 
 	erb :results
 

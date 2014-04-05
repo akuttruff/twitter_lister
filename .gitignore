@@ -2,3 +2,4 @@ secret.rb
 json_results.json
 .DS_Store
 .bundle
+lister_refactor.rb

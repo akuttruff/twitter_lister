@@ -9,14 +9,14 @@ end
 
 
 post '/results' do
-	
-	slug_name = params['slug_name']
-	user_name = params['user_name']
 
-	lister = Lister.new(slug_name, user_name)
-	lister.process
+  slug_name = params['slug_name']
+  user_name = params['user_name']
 
-	erb :results
+  lister = Lister.new(slug_name, user_name)
+  lister.process
+
+  erb :results
 
 end
 

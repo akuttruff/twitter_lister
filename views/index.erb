@@ -1,24 +1,19 @@
 <html>
-    <head>
-        <title>Welcome to Twitter_Lister</title>
-        <style> 
+  <head>
+    <title>Welcome to Twitter_Lister</title>
+      <style> 
         body {font-family: "Helvetica neue"}
-        </style>
+      </style>
     </head>
 <body>
-
-
-
 <h1>Welcome to Twitter_Lister</h1>
 <p>Please enter the name of the Twitter list, and the name of the list's owner. This application will gather the Twitter bios of all members of the list and render a visualized selection of their most commonly used words using <a href="https://github.com/jasondavies/d3-cloud">d3-cloud.</a></p>
-
 <form action="/results" method="POST">
-    List Name: <input type="text" name="slug_name">
+  List Name: <input type="text" name="slug_name">
     <br/>
-    Screen Name: <input type="text" name="user_name">
+  Screen Name: <input type="text" name="user_name">
     <br/>
     <input type="submit">
 </form>
-
 </body>
 </html>

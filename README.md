@@ -1,9 +1,9 @@
 Twitter_Lister
 ====================
 
-http://twitter-lister.herokuapp.com/
+My first project plays with the developer-friendly [Twitter API](https://dev.twitter.com/docs) to create data visualizations rendered by the [d3-cloud](https://github.com/jasondavies/d3-cloud) JavaScript library. It's a small Sinatra application written in Ruby and hosted by Heroku: 
 
-This application gathers the Twitter bios of all members of a list and renders a visualized selection of their most commonly used words using [d3-cloud](https://github.com/jasondavies/d3-cloud).
+http://twitter-lister.herokuapp.com/
 
 Much of the net/HTTP code draws from the [Codecademy](www.codecademy.com) Twitter API lessons. 
 

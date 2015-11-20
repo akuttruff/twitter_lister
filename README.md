@@ -1,5 +1,5 @@
-Twitter_Lister
-====================
+Twitter List Word Cloud Generator
+=================================
 
 ![alt tag](https://github.com/akuttruff/twitter_lister/blob/master/wordcloud.png)
 

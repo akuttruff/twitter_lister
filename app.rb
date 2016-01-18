@@ -7,16 +7,15 @@ get '/' do
   erb :index
 end
 
-
 post '/results' do
 
-  slug_name = params['slug_name']
-  user_name = params['user_name']
+  slug = params['slug']
+  user = params['user']
 
-  lister = Lister.new(slug_name, user_name)
-  lister.process
+  lister = Lister.new(slug, user)
+  lister.sort_by_frequency
+  lister.write_json
 
   erb :results
 
 end
-
